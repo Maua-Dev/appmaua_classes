@@ -20,5 +20,4 @@ class Student (BaseModel):
         return v
 
     def __init__(self, name: str, ra: str):
-        self.name = name
-        self.ra = ra
+        super().__init__(name=name, ra=ra)

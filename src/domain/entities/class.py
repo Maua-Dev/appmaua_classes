@@ -21,7 +21,7 @@ class Class(BaseModel):
 
     @validator('endTime')
     def endTime_not_greater_than_init(cls, v: time) -> time:
-        if v < self.initTime:
+        if v < cls.initTime:
             raise EntityError('endTime')
         return v
 
@@ -47,16 +47,11 @@ class Class(BaseModel):
                  professor: Professor, place: str, classType: int, classValue: int,
                  degree: str):
         """
-        dayOfWeek - passar valor referente ao enum WeekDayEnum
-        classType - passar valor referente ao enum ClassTypeEnum
-        degree    - passar o codigo do curso do enum DegreeEnum
+            dayOfWeek - passar valor referente ao enum WeekDayEnum
+            classType - passar valor referente ao enum ClassTypeEnum
+            degree    - passar o codigo do curso do enum DegreeEnum
         """
-        self.initTime = initTime
-        self.endTime = endTime
-        self.dayOfWeek = WeekDayEnum(dayOfWeek)
-        self.subject = subject
-        self.professor = professor
-        self.place = place
-        self.classType = ClassTypeEnum(classType)
-        self.classValue = classValue
-        self.degree = DegreeEnum[f'{degree}']
+        super().__init__(initTime = initTime, endTime = endTime, dayOfWeek = WeekDayEnum(dayOfWeek), subject = subject,
+                         professor = professor, place = place, classType = ClassTypeEnum(classType),
+                         classValue = classValue, degree = DegreeEnum[f'{degree}'])
+

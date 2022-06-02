@@ -27,6 +27,4 @@ class Professor(BaseModel):
         return v
 
     def __init__(self, name: str, email: str, phoneNumber: str):
-        self.name = name
-        self.email = email
-        self.phoneNumber = phoneNumber
+        super().__init__(name=name, email=email, phoneNumber=phoneNumber)
