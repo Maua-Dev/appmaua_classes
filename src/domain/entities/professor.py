@@ -9,19 +9,19 @@ class Professor (BaseModel):
     phoneNumber: str
 
     @validator('name')
-    def name_is_not_empty(cls, v: str) -> str:
+    def name_is_not_empty(self, v: str) -> str:
         if len(v) == 0:
             raise EntityError('name')
         return v.title()
 
     @validator('email')
-    def email_is_not_empty(cls, v: str) -> str:
+    def email_is_not_empty(self, v: str) -> str:
         if len(v) == 0:
             raise EntityError('email')
         return v
 
     @validator('phoneNumber')
-    def phoneNumber_is_not_empty(cls, v: str) -> str:
+    def phoneNumber_is_not_empty(self, v: str) -> str:
         if len(v) == 0:
             raise EntityError('phoneNumber')
         return v

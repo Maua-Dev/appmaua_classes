@@ -8,13 +8,13 @@ class Student (BaseModel):
     ra: str
 
     @validator('name')
-    def name_not_empty(cls, v: str) -> str:
+    def name_not_empty(self, v: str) -> str:
         if len(v) == 0:
             raise EntityError('name')
         return v.title()
 
     @validator('ra')
-    def ra_is_valid(cls, v: str) -> str:
+    def ra_is_valid(self, v: str) -> str:
         if len(v) != 8:
             raise EntityError('ra')
         return v
