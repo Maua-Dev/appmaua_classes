@@ -3,7 +3,7 @@ from pydantic import BaseModel, validator
 from src.helpers.errors.domain_errors import EntityError
 
 
-class Professor(BaseModel):
+class Professor (BaseModel):
     name: str
     email: str
     phoneNumber: str
