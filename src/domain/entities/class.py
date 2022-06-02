@@ -20,25 +20,25 @@ class Class(BaseModel):
     degree: DegreeEnum
 
     @validator('endTime')
-    def endTime_not_greater_than_init(self, v: time) -> time:
+    def endTime_not_greater_than_init(cls, v: time) -> time:
         if v < self.initTime:
             raise EntityError('endTime')
         return v
 
     @validator('subject')
-    def subject_is_not_empty(self, v: str) -> str:
+    def subject_is_not_empty(cls, v: str) -> str:
         if len(v) == 0:
             raise EntityError('subject')
         return v[0:6].upper() + v[6:].title()
 
     @validator('place')
-    def place_is_not_empty(self, v: str) -> str:
+    def place_is_not_empty(cls, v: str) -> str:
         if len(v) == 0:
             raise EntityError('place')
         return v.title()
 
     @validator('classValue')
-    def classValue_is_valid(self, v: int) -> int:
+    def classValue_is_valid(cls, v: int) -> int:
         if v < 1:
             raise EntityError('classValue')
         return v
