@@ -25,3 +25,8 @@ class Professor(BaseModel):
         if len(v) == 0:
             raise EntityError('phoneNumber')
         return v
+
+    def __init__(self, name: str, email: str, phoneNumber: str):
+        self.name = name
+        self.email = email
+        self.phoneNumber = phoneNumber
