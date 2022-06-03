@@ -1,11 +1,14 @@
 from pydantic import BaseModel, validator
+from typing import List
 
 from src.helpers.errors.domain_errors import EntityError
+from ._class import Class
 
 
 class Student (BaseModel):
     name: str
     ra: str
+    classes: List[Class]
 
     @validator('name')
     def name_not_empty(cls, v: str) -> str:
@@ -19,5 +22,5 @@ class Student (BaseModel):
             raise EntityError('ra')
         return v
 
-    def __init__(self, name: str, ra: str):
-        super().__init__(name=name, ra=ra)
+    def __init__(self, name: str, ra: str, classes: List[Class]):
+        super().__init__(name=name, ra=ra, classes=classes)
