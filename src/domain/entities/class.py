@@ -5,7 +5,6 @@ from src.helpers.errors.domain_errors import EntityError
 from ..enums.week_days_enum import WeekDayEnum
 from ..enums.class_type_enum import ClassTypeEnum
 from ..enums.degree_enum import DegreeEnum
-from professor import Professor
 
 
 class Class(BaseModel):
@@ -13,7 +12,7 @@ class Class(BaseModel):
     endTime: time
     dayOfWeek: WeekDayEnum
     subject: str
-    professor: Professor
+    professor: str
     place: str
     classType: ClassTypeEnum
     classValue: int
@@ -37,6 +36,12 @@ class Class(BaseModel):
             raise EntityError('place')
         return v.title()
 
+    @validator('professor')
+    def professor_is_not_empty(cls, v: str) -> str:
+        if len(v) == 0:
+            raise EntityError('professor')
+        return v.title()
+
     @validator('classValue')
     def classValue_is_valid(cls, v: int) -> int:
         if v < 1:
@@ -44,14 +49,13 @@ class Class(BaseModel):
         return v
 
     def __init__(self, initTime: time, endTime: time, dayOfWeek: int, subject: str,
-                 professor: Professor, place: str, classType: int, classValue: int,
+                 professor: str, place: str, classType: int, classValue: int,
                  degree: str):
         """
             dayOfWeek - passar valor referente ao enum WeekDayEnum
             classType - passar valor referente ao enum ClassTypeEnum
             degree    - passar o codigo do curso do enum DegreeEnum
         """
-        super().__init__(initTime = initTime, endTime = endTime, dayOfWeek = WeekDayEnum(dayOfWeek), subject = subject,
-                         professor = professor, place = place, classType = ClassTypeEnum(classType),
-                         classValue = classValue, degree = DegreeEnum[f'{degree}'])
-
+        super().__init__(initTime=initTime, endTime=endTime, dayOfWeek=WeekDayEnum(dayOfWeek), subject=subject,
+                         professor=professor, place=place, classType=ClassTypeEnum(classType),
+                         classValue=classValue, degree=DegreeEnum[f'{degree}'])
