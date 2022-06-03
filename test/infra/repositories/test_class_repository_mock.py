@@ -9,7 +9,7 @@ class Test_ClassRepositoryMock:
 
     def test_repository(self):
         repo: ClassRepositoryMock = ClassRepositoryMock()
-        _class = Class(time(16, 50, 0, 0), time(18, 30, 0, 0), 0,
+        _class = Class(time(16, 50, 0, 0), time(18, 30, 0, 0), 1,
                                "EFH113 - Empreendedorismo e Gestão", "Reynaldo Cunha", "U14", 1, 1, "ECM")
         _student: Student = Student("Renan Reschke", "19020090", repo._classes)
 

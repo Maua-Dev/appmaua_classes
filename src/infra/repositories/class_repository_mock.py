@@ -18,9 +18,9 @@ class ClassRepositoryMock (IClassRepository):
                                "ECM401 - Banco de Dados", "Aparecido Freitas", "E01", 1, 1, "ECM"),
                          Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 1,
                                "ECM231 - Engenharia de Software", "Ana Serra", "E02", 1, 1, "ECM"),
-                         Class(time(16, 50, 0, 0), time(18, 30, 0, 0), 0,
+                         Class(time(16, 50, 0, 0), time(18, 30, 0, 0), 1,
                                "EFH113 - Empreendedorismo e Gestão", "Reynaldo Cunha", "U14", 1, 1, "ECM"),
-                         Class(time(18, 40, 0, 0), time(20, 20, 0, 0), 0,
+                         Class(time(18, 40, 0, 0), time(20, 20, 0, 0), 1,
                                "ECM231 - Engenharia de Software", "Ana Serra", "U14", 0, 1, "ECM")
                          ]
 
