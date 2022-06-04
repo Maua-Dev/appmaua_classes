@@ -4,13 +4,17 @@ from datetime import time
 from src.domain.entities.student import Student
 from src.infra.repositories.class_repository_mock import ClassRepositoryMock
 from src.domain.entities._class import Class
+from src.domain.entities.professor import Professor
+
 
 class Test_ClassRepositoryMock:
 
     def test_repository(self):
         repo: ClassRepositoryMock = ClassRepositoryMock()
         _class = Class(time(16, 50, 0, 0), time(18, 30, 0, 0), 1,
-                               "EFH113 - Empreendedorismo e Gestão", "Reynaldo Cunha", "U14", 1, 1, "ECM")
+                       "EFH113 - Empreendedorismo e Gestão",
+                       Professor("Reynaldo Cunha", "reynaldo@email.com", "999999999"),
+                       "U14", 1, 1, "ECM")
         _student: Student = Student("Renan Reschke", "19020090", repo._classes)
 
         assert _class in repo._classes

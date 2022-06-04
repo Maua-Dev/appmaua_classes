@@ -2,17 +2,35 @@ from typing import List
 from datetime import time
 
 from src.domain.entities._class import Class
+from src.domain.entities.professor import Professor
 from src.domain.enums.class_type_enum import ClassTypeEnum
 from src.domain.enums.degree_enum import DegreeEnum
 from src.domain.enums.week_days_enum import WeekDayEnum
 
+
+class ProfessorViewModel:
+    name: str
+    email: str
+    phoneNumber: str
+
+    def __init__(self, _professor: Professor):
+        self.name = _professor.name
+        self.email = _professor.email
+        self.phoneNumber = _professor.phoneNumber
+
+    def toDict(self):
+        return {
+            "name": self.name,
+            "email": self.email,
+            "phoneNumber": self.phoneNumber
+        }
 
 class ClassViewModel:
     initTime: time
     endTime: time
     dayOfWeek: WeekDayEnum
     subject: str
-    professor: str
+    professor: ProfessorViewModel
     place: str
     classType: ClassTypeEnum
     classValue: int
@@ -23,7 +41,7 @@ class ClassViewModel:
         self.endTime = _class.endTime
         self.dayOfWeek = _class.dayOfWeek
         self.subject = _class.subject
-        self.professor = _class.professor
+        self.professor = ProfessorViewModel(_class.professor)
         self.place = _class.place
         self.classType = _class.classType
         self.classValue = _class.classValue
@@ -35,7 +53,7 @@ class ClassViewModel:
             "endTime": self.endTime.isoformat(),
             "dayOfWeek": self.dayOfWeek.value,
             "subject": self.subject,
-            "professor": self.professor,
+            "professor": self.professor.toDict(),
             "place": self.place,
             "classType": self.classType.value,
             "classValue": self.classValue,
