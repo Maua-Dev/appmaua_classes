@@ -2,7 +2,7 @@ from pydantic import BaseModel, validator
 from datetime import time
 
 from src.helpers.errors.domain_errors import EntityError
-from .professor import Professor
+from .subject import Subject
 from ..enums.week_days_enum import WeekDayEnum
 from ..enums.class_type_enum import ClassTypeEnum
 from ..enums.degree_enum import DegreeEnum
@@ -12,8 +12,7 @@ class Class(BaseModel):
     initTime: time
     endTime: time
     dayOfWeek: WeekDayEnum
-    subject: str
-    professor: Professor
+    subject: Subject
     place: str
     classType: ClassTypeEnum
     classValue: int
@@ -24,12 +23,6 @@ class Class(BaseModel):
         if 'initTime' in values and v < values['initTime']:
             raise EntityError('endTime')
         return v
-
-    @validator('subject')
-    def subject_is_not_empty(cls, v: str) -> str:
-        if len(v) == 0:
-            raise EntityError('subject')
-        return v[0:6].upper() + v[6:].title()
 
     @validator('place')
     def place_is_not_empty(cls, v: str) -> str:

@@ -3,6 +3,7 @@ from datetime import time
 
 from src.domain.entities._class import Class
 from src.domain.entities.professor import Professor
+from src.domain.entities.subject import Subject
 from src.domain.enums.class_type_enum import ClassTypeEnum
 from src.domain.enums.degree_enum import DegreeEnum
 from src.domain.enums.week_days_enum import WeekDayEnum
@@ -25,12 +26,29 @@ class ProfessorViewModel:
             "phoneNumber": self.phoneNumber
         }
 
+
+class SubjectViewModel:
+    code: str
+    name: str
+    professor: ProfessorViewModel
+
+    def __init__(self, _subject: Subject):
+        self.code = _subject.code
+        self.name = _subject.name
+        self.professor = ProfessorViewModel(_subject.professor)
+
+    def toDict(self):
+        return {
+            "code": self.code,
+            "name": self.name,
+            "professor": self.professor.toDict()
+        }
+
 class ClassViewModel:
     initTime: time
     endTime: time
     dayOfWeek: WeekDayEnum
-    subject: str
-    professor: ProfessorViewModel
+    subject: SubjectViewModel
     place: str
     classType: ClassTypeEnum
     classValue: int
@@ -40,8 +58,7 @@ class ClassViewModel:
         self.initTime = _class.initTime
         self.endTime = _class.endTime
         self.dayOfWeek = _class.dayOfWeek
-        self.subject = _class.subject
-        self.professor = ProfessorViewModel(_class.professor)
+        self.subject = SubjectViewModel(_class.subject)
         self.place = _class.place
         self.classType = _class.classType
         self.classValue = _class.classValue
@@ -52,8 +69,7 @@ class ClassViewModel:
             "initTime": self.initTime.isoformat(),
             "endTime": self.endTime.isoformat(),
             "dayOfWeek": self.dayOfWeek.value,
-            "subject": self.subject,
-            "professor": self.professor.toDict(),
+            "subject": self.subject.toDict(),
             "place": self.place,
             "classType": self.classType.value,
             "classValue": self.classValue,

@@ -2,6 +2,7 @@ import pytest
 from datetime import time, timezone, timedelta
 
 from src.domain.entities.student import Student
+from src.domain.entities.subject import Subject
 from src.domain.enums.class_type_enum import ClassTypeEnum
 from src.domain.enums.degree_enum import DegreeEnum
 from src.domain.enums.week_days_enum import WeekDayEnum
@@ -16,8 +17,10 @@ class Test_ClassRepositoryMock:
         repo: ClassRepositoryMock = ClassRepositoryMock()
         _class = Class(initTime=time(16, 50, 0, 0, timezone(timedelta(hours=-3))),
                        endTime=time(18, 30, 0, 0, timezone(timedelta(hours=-3))), dayOfWeek=WeekDayEnum.TERCA,
-                       subject="EFH113 - Empreendedorismo e Gestão",
-                       professor=Professor(name="Reynaldo Cunha", email="reynaldo@email.com", phoneNumber="999999999"),
+                       subject=Subject(code="EFH113", name="Empreendedorismo e Gestão",
+                                       professor=Professor(name="Reynaldo Cunha",
+                                                           email="reynaldo@email.com",
+                                                           phoneNumber="999999999")),
                        place="U14", classType=ClassTypeEnum.TURMA, classValue=1, degree=DegreeEnum.ECM)
         _student: Student = Student(name="Renan Reschke", ra="19020090", classes=repo._classes)
 
