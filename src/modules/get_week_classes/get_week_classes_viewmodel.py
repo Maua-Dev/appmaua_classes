@@ -69,14 +69,17 @@ class WeekClassesViewModel:
     _5: List[ClassViewModel]
     _6: List[ClassViewModel]
 
-    def __init__(self, _classViewModels: List[ClassViewModel]):
-        self._0 = [_class for _class in _classViewModels if _class.dayOfWeek.value == 0]
-        self._1 = [_class for _class in _classViewModels if _class.dayOfWeek.value == 1]
-        self._2 = [_class for _class in _classViewModels if _class.dayOfWeek.value == 2]
-        self._3 = [_class for _class in _classViewModels if _class.dayOfWeek.value == 3]
-        self._4 = [_class for _class in _classViewModels if _class.dayOfWeek.value == 4]
-        self._5 = [_class for _class in _classViewModels if _class.dayOfWeek.value == 5]
-        self._6 = [_class for _class in _classViewModels if _class.dayOfWeek.value == 6]
+    def __init__(self, _classViewModels: List[Class]):
+
+        classesVm = [ClassViewModel(_class) for _class in _classViewModels]
+
+        self._0 = [_class for _class in classesVm if _class.dayOfWeek.value == 0]
+        self._1 = [_class for _class in classesVm if _class.dayOfWeek.value == 1]
+        self._2 = [_class for _class in classesVm if _class.dayOfWeek.value == 2]
+        self._3 = [_class for _class in classesVm if _class.dayOfWeek.value == 3]
+        self._4 = [_class for _class in classesVm if _class.dayOfWeek.value == 4]
+        self._5 = [_class for _class in classesVm if _class.dayOfWeek.value == 5]
+        self._6 = [_class for _class in classesVm if _class.dayOfWeek.value == 6]
 
     def toDict(self):
         return {

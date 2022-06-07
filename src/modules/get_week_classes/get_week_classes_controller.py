@@ -21,9 +21,7 @@ class GetWeekClassesController:
 
             classes = await self._getWeekClassesUsecase(request.query_params.get('ra'))
 
-            classesVm = [ClassViewModel(_class) for _class in classes]
-
-            weekClassesVm = WeekClassesViewModel(classesVm)
+            weekClassesVm = WeekClassesViewModel(classes)
 
             return OK(weekClassesVm.toDict())
 
