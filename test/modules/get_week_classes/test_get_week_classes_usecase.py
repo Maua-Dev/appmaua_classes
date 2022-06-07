@@ -15,7 +15,8 @@ class Test_GetWeekClassesUsecase:
 
         classes = await uc("19020090")
 
-        assert len(classes) == 5
+        assert len(classes) == len(repo._classes)
         assert type(classes) is list
         assert type(classes[0]) is Class
+        assert repo._classes[0] in classes
 

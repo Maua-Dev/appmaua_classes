@@ -27,9 +27,8 @@ class Test_WeekClassViewModel:
                                           "ECM231 - Engenharia de Software",
                                           Professor("Ana Serra", "ana@email.com", "999999999"), "U14", 0, 1, "ECM")
                                     ]
-        _classVm = [ClassViewModel(_class) for _class in _classes]
 
-        _weekClassVm = WeekClassesViewModel(_classVm)
+        _weekClassVm = WeekClassesViewModel(_classes)
 
         assert len(_weekClassVm._0) == 1
         assert len(_weekClassVm._2) == 1

@@ -1,8 +1,10 @@
 import pytest
 
+from src.domain.enums.week_days_enum import WeekDayEnum
 from src.infra.repositories.class_repository_mock import ClassRepositoryMock
 from src.modules.get_week_classes.get_week_classes_usecase import GetWeekClassesUsecase
 from src.modules.get_week_classes.get_week_classes_controller import GetWeekClassesController
+from src.modules.get_week_classes.get_week_classes_viewmodel import WeekClassesViewModel
 from src.helpers.http_models import HttpRequest, HttpResponse
 
 
@@ -15,33 +17,9 @@ class Test_GetWeekClassesController:
     async def test_controller(self):
         retorno: HttpResponse = await self.controller(HttpRequest(query_params={"ra": "19020090"}))
 
-        assert retorno.body["0"] == [{
-            "initTime": "15:00:00-03:00",
-            "endTime": "16:40:00-03:00",
-            "dayOfWeek": 0,
-            "subject": "ECM407 - Redes De Computadores",
-            "professor": {"name": "Everson Denis",
-                          "email": "everson@email.com",
-                          "phoneNumber": "999999999"},
-            "place": "E02",
-            "classType": 1,
-            "classValue": 1,
-            "degree": "Engenharia De Computação"
-        },
-            {
-                "initTime": "16:50:00-03:00",
-                "endTime": "18:30:00-03:00",
-                "dayOfWeek": 0,
-                "subject": "ECM401 - Banco De Dados",
-                "professor": {"name": "Aparecido Freitas",
-                              "email": "aparecido@email.com",
-                              "phoneNumber": "999999999"},
-                "place": "E01",
-                "classType": 1,
-                "classValue": 1,
-                "degree": "Engenharia De Computação"
-            }
-        ]
+        classes0 = [_class for _class in self.repo._classes if _class.dayOfWeek == WeekDayEnum(0)]
+
+        assert retorno.body["0"] == WeekClassesViewModel(classes0).toDict()["0"]
 
     @pytest.mark.asyncio
     async def test_controller_error1(self):
