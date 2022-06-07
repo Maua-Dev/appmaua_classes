@@ -17,9 +17,7 @@ class Test_GetWeekClassesController:
     async def test_controller(self):
         retorno: HttpResponse = await self.controller(HttpRequest(query_params={"ra": "19020090"}))
 
-        classes0 = [_class for _class in self.repo._classes if _class.dayOfWeek == WeekDayEnum(0)]
-
-        assert retorno.body["0"] == WeekClassesViewModel(classes0).toDict()["0"]
+        assert retorno.body["0"] == WeekClassesViewModel(self.repo._classes).toDict()["0"]
 
     @pytest.mark.asyncio
     async def test_controller_error1(self):
