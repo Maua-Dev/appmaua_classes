@@ -43,30 +43,3 @@ class Class(BaseModel):
             raise EntityError('classValue')
         return v
 
-    def __init__(self, initTime: time, endTime: time, dayOfWeek: int, subject: str,
-                 professor: Professor, place: str, classType: int, classValue: int,
-                 degree: str):
-        """
-            dayOfWeek - passar valor referente ao enum WeekDayEnum
-            classType - passar valor referente ao enum ClassTypeEnum
-            degree    - passar o codigo do curso do enum DegreeEnum
-        """
-        try:
-            _dayOfWeek = WeekDayEnum(dayOfWeek)
-        except Exception:
-            raise EntityError('dayOfWeek')
-
-        try:
-            _classType = ClassTypeEnum(classType)
-        except Exception:
-            raise EntityError('classType')
-
-        try:
-            _degree = DegreeEnum[f'{degree}']
-        except Exception:
-            raise EntityError('_degree')
-
-
-        super().__init__(initTime=initTime, endTime=endTime, dayOfWeek=WeekDayEnum(dayOfWeek), subject=subject,
-                         professor=professor, place=place, classType=ClassTypeEnum(classType),
-                         classValue=classValue, degree=DegreeEnum[f'{degree}'])

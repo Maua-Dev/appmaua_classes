@@ -12,9 +12,11 @@ from src.domain.enums.degree_enum import DegreeEnum
 class Test_Class:
 
     def test_class(self):
-        _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
-                       "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
-                       "E02", 1, 1, "ECM")
+        _class = Class(initTime=time(15, 0, 0, 0, timezone(timedelta(hours=-3))),
+                       endTime=time(16, 40, 0, 0, timezone(timedelta(hours=-3))), dayOfWeek=WeekDayEnum.SEGUNDA,
+                       subject="Ecm407 - redes de ComPutadores",
+                       professor=Professor(name="eVerson Denis", email="everson@email.com", phoneNumber="999999999"),
+                       place="E02", classType=ClassTypeEnum.TURMA, classValue=1, degree=DegreeEnum.ECM)
 
         assert _class.initTime.hour == 15
         assert _class.endTime.minute == 40
@@ -27,46 +29,40 @@ class Test_Class:
 
     def test_class_entity_error1(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(13, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
-                           "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
-                           "E02", 1, 1, "ECM")
+            _class = Class(initTime=time(15, 0, 0, 0, timezone(timedelta(hours=-3))),
+                           endTime=time(13, 40, 0, 0, timezone(timedelta(hours=-3))), dayOfWeek=WeekDayEnum.SEGUNDA,
+                           subject="Ecm407 - redes de ComPutadores",
+                           professor=Professor(name="eVerson Denis", email="everson@email.com", phoneNumber="999999999"),
+                           place="E02", classType=ClassTypeEnum.TURMA, classValue=1, degree=DegreeEnum.ECM)
 
     def test_class_entity_error2(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
-                           "", Professor("eVerson Denis", "everson@email.com", "999999999"), "E02", 1, 1, "ECM")
-
-    def test_class_entity_error3(self):
-        with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 8,
-                           "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
-                           "E02", 1, 1, "ECM")
+            _class = Class(initTime=time(15, 0, 0, 0, timezone(timedelta(hours=-3))),
+                           endTime=time(16, 40, 0, 0, timezone(timedelta(hours=-3))), dayOfWeek=WeekDayEnum.SEGUNDA,
+                           subject="",
+                           professor=Professor(name="eVerson Denis", email="everson@email.com", phoneNumber="999999999"),
+                           place="E02", classType=ClassTypeEnum.TURMA, classValue=1, degree=DegreeEnum.ECM)
 
     def test_class_entity_error4(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
-                           "", Professor("eVerson Denis", "everson@email.com", "999999999"), "E02", 1, 1, "ECM")
+            _class = Class(initTime=time(15, 0, 0, 0, timezone(timedelta(hours=-3))),
+                           endTime=time(16, 40, 0, 0, timezone(timedelta(hours=-3))), dayOfWeek=WeekDayEnum.SEGUNDA,
+                           subject="",
+                           professor=Professor(name="eVerson Denis", email="everson@email.com", phoneNumber="999999999"),
+                           place="E02", classType=ClassTypeEnum.TURMA, classValue=1, degree=DegreeEnum.ECM)
 
     def test_class_entity_error5(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
-                           "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
-                           "", 1, 1, "ECM")
-
-    def test_class_entity_error6(self):
-        with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
-                           "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
-                           "E02", 6, 1, "ECM")
+            _class = Class(initTime=time(15, 0, 0, 0, timezone(timedelta(hours=-3))),
+                           endTime=time(16, 40, 0, 0, timezone(timedelta(hours=-3))), dayOfWeek=WeekDayEnum.SEGUNDA,
+                           subject="Ecm407 - redes de ComPutadores",
+                           professor=Professor(name="eVerson Denis", email="everson@email.com", phoneNumber="999999999"),
+                           place="", classType=ClassTypeEnum.TURMA, classValue=1, degree=DegreeEnum.ECM)
 
     def test_class_entity_error7(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
-                           "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
-                           "E02", 1, -1, "ECM")
-
-    def test_class_entity_error8(self):
-        with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
-                           "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
-                           "E02", 1, 1, "EC")
+            _class = Class(initTime=time(15, 0, 0, 0, timezone(timedelta(hours=-3))),
+                           endTime=time(16, 40, 0, 0, timezone(timedelta(hours=-3))), dayOfWeek=WeekDayEnum.SEGUNDA,
+                           subject="Ecm407 - redes de ComPutadores",
+                           professor=Professor(name="eVerson Denis", email="everson@email.com", phoneNumber="999999999"),
+                           place="E02", classType=ClassTypeEnum.TURMA, classValue=-1, degree=DegreeEnum.ECM)

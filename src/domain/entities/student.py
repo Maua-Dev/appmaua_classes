@@ -21,6 +21,3 @@ class Student (BaseModel):
         if len(v) != 8:
             raise EntityError('ra')
         return v
-
-    def __init__(self, name: str, ra: str, classes: List[Class]):
-        super().__init__(name=name, ra=ra, classes=classes)

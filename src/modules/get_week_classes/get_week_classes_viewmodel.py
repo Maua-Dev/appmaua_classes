@@ -69,9 +69,9 @@ class WeekClassesViewModel:
     _5: List[ClassViewModel]
     _6: List[ClassViewModel]
 
-    def __init__(self, _classViewModels: List[Class]):
+    def __init__(self, _classes: List[Class]):
 
-        classesVm = [ClassViewModel(_class) for _class in _classViewModels]
+        classesVm = [ClassViewModel(_class) for _class in _classes]
 
         self._0 = [_class for _class in classesVm if _class.dayOfWeek.value == 0]
         self._1 = [_class for _class in classesVm if _class.dayOfWeek.value == 1]

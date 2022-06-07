@@ -26,5 +26,3 @@ class Professor(BaseModel):
             raise EntityError('phoneNumber')
         return v
 
-    def __init__(self, name: str, email: str, phoneNumber: str):
-        super().__init__(name=name, email=email, phoneNumber=phoneNumber)

@@ -7,18 +7,18 @@ from src.helpers.errors.domain_errors import EntityError
 class Test_Student:
 
     def test_student(self):
-        student = Student("Renan scheidt reschke", "19020090", [])
+        student = Student(name="Renan scheidt reschke", ra="19020090", classes=[])
 
         assert student.name == "Renan Scheidt Reschke"
 
     def test_student_entity_error1(self):
         with pytest.raises(EntityError):
-            Student("", "19020090", [])
+            Student(name="", ra="19020090", classes=[])
 
     def test_student_entity_error2(self):
         with pytest.raises(EntityError):
-            Student("Renan scheidt reschke", "", [])
+            Student(name="Renan scheidt reschke", ra="", classes=[])
 
     def test_student_entity_error3(self):
         with pytest.raises(EntityError):
-            Student("Renan scheidt reschke", "1902009000000", [])
+            Student(name="Renan scheidt reschke", ra="1902009000000", classes=[])
