@@ -1,5 +1,5 @@
 import pytest
-from datetime import time
+from datetime import time, timezone, timedelta
 
 from src.domain.entities._class import Class
 from src.domain.entities.professor import Professor
@@ -12,7 +12,7 @@ from src.domain.enums.degree_enum import DegreeEnum
 class Test_Class:
 
     def test_class(self):
-        _class = Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 0,
+        _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
                        "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
                        "E02", 1, 1, "ECM")
 
@@ -27,46 +27,46 @@ class Test_Class:
 
     def test_class_entity_error1(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0), time(13, 40, 0, 0), 0,
+            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(13, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
                            "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
                            "E02", 1, 1, "ECM")
 
     def test_class_entity_error2(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 0,
+            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
                            "", Professor("eVerson Denis", "everson@email.com", "999999999"), "E02", 1, 1, "ECM")
 
     def test_class_entity_error3(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 8,
+            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 8,
                            "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
                            "E02", 1, 1, "ECM")
 
     def test_class_entity_error4(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 0,
+            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
                            "", Professor("eVerson Denis", "everson@email.com", "999999999"), "E02", 1, 1, "ECM")
 
     def test_class_entity_error5(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 0,
+            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
                            "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
                            "", 1, 1, "ECM")
 
     def test_class_entity_error6(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 0,
+            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
                            "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
                            "E02", 6, 1, "ECM")
 
     def test_class_entity_error7(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 0,
+            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
                            "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
                            "E02", 1, -1, "ECM")
 
     def test_class_entity_error8(self):
         with pytest.raises(EntityError):
-            _class = Class(time(15, 0, 0, 0), time(16, 40, 0, 0), 0,
+            _class = Class(time(15, 0, 0, 0, timezone(timedelta(hours=-3))), time(16, 40, 0, 0, timezone(timedelta(hours=-3))), 0,
                            "Ecm407 - redes de ComPutadores", Professor("eVerson Denis", "everson@email.com", "999999999"),
                            "E02", 1, 1, "EC")

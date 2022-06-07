@@ -16,8 +16,8 @@ class Test_GetWeekClassesController:
         retorno: HttpResponse = await self.controller(HttpRequest(query_params={"ra": "19020090"}))
 
         assert retorno.body["0"] == [{
-            "initTime": "15:00:00",
-            "endTime": "16:40:00",
+            "initTime": "15:00:00-03:00",
+            "endTime": "16:40:00-03:00",
             "dayOfWeek": 0,
             "subject": "ECM407 - Redes De Computadores",
             "professor": {"name": "Everson Denis",
@@ -29,8 +29,8 @@ class Test_GetWeekClassesController:
             "degree": "Engenharia De Computação"
         },
             {
-                "initTime": "16:50:00",
-                "endTime": "18:30:00",
+                "initTime": "16:50:00-03:00",
+                "endTime": "18:30:00-03:00",
                 "dayOfWeek": 0,
                 "subject": "ECM401 - Banco De Dados",
                 "professor": {"name": "Aparecido Freitas",

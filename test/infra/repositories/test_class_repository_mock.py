@@ -1,5 +1,5 @@
 import pytest
-from datetime import time
+from datetime import time, timezone, timedelta
 
 from src.domain.entities.student import Student
 from src.infra.repositories.class_repository_mock import ClassRepositoryMock
@@ -11,7 +11,7 @@ class Test_ClassRepositoryMock:
 
     def test_repository(self):
         repo: ClassRepositoryMock = ClassRepositoryMock()
-        _class = Class(time(16, 50, 0, 0), time(18, 30, 0, 0), 1,
+        _class = Class(time(16, 50, 0, 0, timezone(timedelta(hours=-3))), time(18, 30, 0, 0, timezone(timedelta(hours=-3))), 1,
                        "EFH113 - Empreendedorismo e Gestão",
                        Professor("Reynaldo Cunha", "reynaldo@email.com", "999999999"),
                        "U14", 1, 1, "ECM")
