@@ -1,0 +1,32 @@
+name: dispatch receiver
+
+on: [repository_dispatch]
+
+jobs:
+  criarIssue:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: dispatch trigger
+      run: |
+        echo "repository_dispatch triggered"
+    - run: 'echo "field: ${{ github.event.client_payload.issueKey }}"'
+    - run: 'echo "field: ${{ github.event.client_payload.issueDescription }}"'
+    - run: 'echo "field: ${{ github.event.client_payload.issueKey }}"'
+    
+    - uses: nashmaniac/create-issue-action@v1.1
+      name: Create Issue Action
+      with:
+        title: "${{ github.event.client_payload.issueKey }}-${{ github.event.client_payload.issueTitle }}"
+        token: ${{secrets.GITHUB_TOKEN}}
+        body: |
+          "${{ github.event.client_payload.issueDescription }}"
+          --------------------------
+          "Essa issue foi criada no Jira e automaticamente adicionada ao GH. 
+            A tag da issue é: ${{ github.event.client_payload.issueKey }}
+            ##Lembre-se de: 
+             - [ ] Colocar a tag ${{ github.event.client_payload.issueKey }} no inicio do nome da branch
+             - [ ] Colocar a tag ${{ github.event.client_payload.issueKey }} no inicio da PR
+             - [ ] Linkar essa issue (GitHub) com a PR
+             |
+             Exemplo de nome para branch/PR: ${{ github.event.client_payload.issueKey }}-${{ github.event.client_payload.issueKey }}"
