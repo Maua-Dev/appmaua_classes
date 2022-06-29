@@ -59,9 +59,9 @@ class ClassDynamoDTO:
     @staticmethod
     def fromEntity(entity: Class):
         return ClassDynamoDTO(
-            initTime=str(entity.initTime.isoformat(timespec='auto')),
-            endTime=str(entity.endTime.isoformat(timespec='auto')),
-            dayOfWeek=int(entity.dayOfWeek.value()),
+            initTime=str(entity.initTime.isoformat(timespec='microseconds')),
+            endTime=str(entity.endTime.isoformat(timespec='microseconds')),
+            dayOfWeek=int(entity.dayOfWeek.value),
             subject=dict(
                 code=str(entity.subject.code),
                 name=str(entity.subject.name),
