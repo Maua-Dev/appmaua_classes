@@ -1,15 +1,13 @@
 import boto3
 
-from src.envs import Envs
-
 
 class DynamoTable:
 
-    def __init__(self):
-        self.access_key = Envs.getConfig().access_key
-        self.secret_key = Envs.getConfig().secret_key
-        self.endpoint_url = Envs.getConfig().endpoint_url
-        self.dynamo_table_name = Envs.getConfig().dynamo_table_name
+    def __init__(self, access_key, secret_key, endpoint_url, dynamo_table_name):
+        self.access_key = access_key
+        self.secret_key = secret_key
+        self.endpoint_url = endpoint_url
+        self.dynamo_table_name = dynamo_table_name
 
 
     def __enter__(self):

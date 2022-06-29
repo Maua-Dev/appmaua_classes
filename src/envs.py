@@ -15,9 +15,10 @@ class ConfigLocal(Config):
         self.dynamo_table_name = os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594"
 
 
-class ConfigDes(Config):
+class ConfigDev(Config):
     def __init__(self) -> None:
         super().__init__()
+        self.dynamo_table_name = os.getenv("DYNAMO_CLASSES_TABLE_NAME") or "foo"
 
 
 class ConfigProd(Config):
@@ -28,7 +29,7 @@ class ConfigProd(Config):
 class EnvEnum(Enum):
     MOCK = 'Mock'
     LOCAL = 'Local'
-    DES = 'Development'
+    DEV = 'Development'
     PROD = 'Production'
 
 
@@ -44,8 +45,8 @@ class Envs:
         return Envs.appEnv == EnvEnum.LOCAL
 
     @staticmethod
-    def IsDes():
-        return Envs.appEnv == EnvEnum.DES
+    def IsDev():
+        return Envs.appEnv == EnvEnum.DEV
 
     @staticmethod
     def IsProd():
@@ -55,8 +56,8 @@ class Envs:
     def getConfig() -> Config:
         if (Envs.IsLocal()):
             return ConfigLocal()
-        if (Envs.IsDes()):
-            return ConfigDes()
+        if (Envs.IsDev()):
+            return ConfigDev()
         if (Envs.IsProd()):
             return ConfigProd()
         return ConfigLocal()
