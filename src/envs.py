@@ -1,30 +1,40 @@
 from enum import Enum
 import os
+from dotenv import load_dotenv
 
 
-class Config():
-    sqlConnection: str
+class Config:
+    access_key: str
+    secret_key: str
+    endpoint_url: str
+    dynamo_table_name: str
 
 
 class ConfigLocal(Config):
     def __init__(self) -> None:
-        super().__init__()
-        self.access_key = "foo"
-        self.secret_key = "bar"
-        self.endpoint_url = "http://localhost:4566"
-        self.dynamo_table_name = os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594"
+        load_dotenv()
+        super().__init__(access_key="foo",
+                         secret_key="bar",
+                         endpoint_url="http://localhost:4566",
+                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594")
 
 
 class ConfigDev(Config):
     def __init__(self) -> None:
-        super().__init__()
-        self.dynamo_table_name = os.getenv("DYNAMO_CLASSES_TABLE_NAME") or "foo"
+        load_dotenv()
+        super().__init__(access_key=os.getenv("DYNAMO_ACCESS_KEY"),
+                         secret_key=os.getenv("DYNAMO_SECRET_KEY"),
+                         endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL"),
+                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594")
 
 
 class ConfigProd(Config):
     def __init__(self) -> None:
-        super().__init__()
-
+        load_dotenv()
+        super().__init__(access_key=os.getenv("DYNAMO_ACCESS_KEY"),
+                         secret_key=os.getenv("DYNAMO_SECRET_KEY"),
+                         endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL"),
+                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME"))
 
 class EnvEnum(Enum):
     MOCK = 'Mock'

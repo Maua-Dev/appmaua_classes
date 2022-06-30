@@ -1,17 +1,11 @@
-import os
+from src.envs import Envs
 import asyncio
 import pprint
 
 from src.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
 from src.external.dynamo.datasources.mock_db import CLASSES # arquivo temporario com lista das aulas
 
-# access_key = os.environ["access_key"]
-# secret_key = os.environ["secret_key"]
-# endpoint_url = os.environ["endpoint_url"]
-# dynamo_table_name = os.environ["dynamo_table_name"]
-
-
-access_key = None
+access_key = Envs.getConfig().access_key
 secret_key = None
 endpoint_url = None
 dynamo_table_name = "IaCStack-MauAppSubjectsDB1BBD4F9F-1KES1YD4D4CXE"
