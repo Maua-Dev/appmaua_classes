@@ -8,12 +8,14 @@ class Config:
     secret_key: str
     endpoint_url: str
     dynamo_table_name: str
+    region: str
 
     def __init__(self, **kwargs):
-        self.access_key = str(kwargs.get("access_key"))
-        self.secret_key = str(kwargs.get("secret_key"))
-        self.endpoint_url = str(kwargs.get("endpoint_url"))
-        self.dynamo_table_name = str(kwargs.get("dynamo_table_name"))
+        self.access_key = str(kwargs.get("access_key")) if kwargs.get("access_key") else None
+        self.secret_key = str(kwargs.get("secret_key")) if kwargs.get("secret_key") else None
+        self.endpoint_url = str(kwargs.get("endpoint_url")) if kwargs.get("endpoint_url") else None
+        self.dynamo_table_name = str(kwargs.get("dynamo_table_name")) if kwargs.get("dynamo_table_name") else None
+        self.region = str(kwargs.get("region")) if kwargs.get("region") else None
 
 
 class ConfigLocal(Config):
@@ -22,7 +24,8 @@ class ConfigLocal(Config):
         super().__init__(access_key="foo",
                          secret_key="bar",
                          endpoint_url="http://localhost:4566",
-                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594")
+                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
+                         region=os.getenv("REGION"))
 
 
 class ConfigDev(Config):
@@ -31,7 +34,8 @@ class ConfigDev(Config):
         super().__init__(access_key=os.getenv("DYNAMO_ACCESS_KEY"),
                          secret_key=os.getenv("DYNAMO_SECRET_KEY"),
                          endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL"),
-                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594")
+                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
+                         region=os.getenv("REGION"))
 
 
 class ConfigProd(Config):
@@ -40,7 +44,8 @@ class ConfigProd(Config):
         super().__init__(access_key=os.getenv("DYNAMO_ACCESS_KEY"),
                          secret_key=os.getenv("DYNAMO_SECRET_KEY"),
                          endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL"),
-                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME"))
+                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME"),
+                         region=os.getenv("REGION"))
 
 class EnvEnum(Enum):
     MOCK = 'Mock'

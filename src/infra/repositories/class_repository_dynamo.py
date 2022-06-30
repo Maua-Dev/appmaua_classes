@@ -14,7 +14,8 @@ class ClassRepositoryDynamo(IClassRepository):
     def __init__(self):
         self.dynamo = DynamoDatasource(access_key=Envs.getConfig().access_key,
                                        secret_key=Envs.getConfig().secret_key, endpoint_url=None,
-                                       dynamo_table_name=Envs.getConfig().dynamo_table_name)
+                                       dynamo_table_name=Envs.getConfig().dynamo_table_name,
+                                       region=Envs.getConfig().region)
 
     async def get_student_week_classes(self, ra: str) -> List[Class]:
         keyCondition = Key("studentRA").eq(ra)
