@@ -9,6 +9,12 @@ class Config:
     endpoint_url: str
     dynamo_table_name: str
 
+    def __init__(self, **kwargs):
+        self.access_key = str(kwargs.get("access_key"))
+        self.secret_key = str(kwargs.get("secret_key"))
+        self.endpoint_url = str(kwargs.get("endpoint_url"))
+        self.dynamo_table_name = str(kwargs.get("dynamo_table_name"))
+
 
 class ConfigLocal(Config):
     def __init__(self) -> None:
