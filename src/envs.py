@@ -24,18 +24,18 @@ class ConfigLocal(Config):
         super().__init__(access_key="foo",
                          secret_key="bar",
                          endpoint_url="http://localhost:4566",
-                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
-                         region=os.getenv("REGION"))
+                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME_LOCAL") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
+                         region=os.getenv("REGION_LOCAL"))
 
 
 class ConfigDev(Config):
     def __init__(self) -> None:
         load_dotenv()
-        super().__init__(access_key=os.getenv("DYNAMO_ACCESS_KEY"),
-                         secret_key=os.getenv("DYNAMO_SECRET_KEY"),
-                         endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL"),
-                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
-                         region=os.getenv("REGION"))
+        super().__init__(access_key=os.getenv("DYNAMO_ACCESS_KEY_DEV"),
+                         secret_key=os.getenv("DYNAMO_SECRET_KEY_DEV"),
+                         endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL_DEV"),
+                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME_DEV") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
+                         region=os.getenv("REGION_DEV"))
 
 
 class ConfigProd(Config):
