@@ -101,6 +101,16 @@ class DynamoDatasource:
             resp = table.scan()
             return resp['Items']
 
+    async def scanItems(self, filterExpression):
+        """
+        Scan items from the table.
+        @return: dict with the response from DynamoDB
+        """
+
+        with self.dynamoTable as table:
+            resp = table.scan(FilterExpression=filterExpression)
+            return resp['Items']
+
     async def query(self, keyConditionExpression, **kwargs):
         """
         Query the table with the KeyConditionExpression.

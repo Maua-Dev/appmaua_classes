@@ -1,5 +1,5 @@
 from typing import List
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Attr
 
 from src.infra.dtos.class_dynamo_dto import ClassDynamoDTO
 from src.domain.entities._class import Class
@@ -18,8 +18,7 @@ class ClassRepositoryDynamo(IClassRepository):
                                        region=Envs.getConfig().region)
 
     async def get_student_week_classes(self, ra: str) -> List[Class]:
-        keyCondition = Key("studentRA").eq(ra)
-        data = await self.dynamo.query(keyConditionExpression=keyCondition, IndexName="studentRA")
+        data = await self.dynamo.scanItems(filterExpression=Attr("studentRA").eq(ra))
 
         return [ClassDynamoDTO.fromDynamo(item).toEntity() for item in data]
 
