@@ -18,35 +18,6 @@ class Config:
         self.region = str(kwargs.get("region")) if kwargs.get("region") else None
 
 
-class ConfigLocal(Config):
-    def __init__(self) -> None:
-        load_dotenv()
-        super().__init__(access_key="foo",
-                         secret_key="bar",
-                         endpoint_url="http://localhost:4566",
-                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME_LOCAL") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
-                         region=os.getenv("REGION_LOCAL"))
-
-
-class ConfigDev(Config):
-    def __init__(self) -> None:
-        load_dotenv()
-        super().__init__(access_key=os.getenv("DYNAMO_ACCESS_KEY_DEV"),
-                         secret_key=os.getenv("DYNAMO_SECRET_KEY_DEV"),
-                         endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL_DEV"),
-                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME_DEV") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
-                         region=os.getenv("REGION_DEV"))
-
-
-class ConfigProd(Config):
-    def __init__(self) -> None:
-        load_dotenv()
-        super().__init__(access_key=os.getenv("DYNAMO_ACCESS_KEY"),
-                         secret_key=os.getenv("DYNAMO_SECRET_KEY"),
-                         endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL"),
-                         dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME"),
-                         region=os.getenv("REGION"))
-
 class EnvEnum(Enum):
     MOCK = 'Mock'
     LOCAL = 'Local'
@@ -55,7 +26,7 @@ class EnvEnum(Enum):
 
 
 class Envs:
-    appEnv: EnvEnum = EnvEnum(os.getenv('PYTHON_ENV') or 'Local')
+    appEnv: EnvEnum = EnvEnum(os.getenv('PYTHON_ENV') or 'Mock')
 
     @staticmethod
     def IsMock():
@@ -75,10 +46,24 @@ class Envs:
 
     @staticmethod
     def getConfig() -> Config:
+        load_dotenv()
         if (Envs.IsLocal()):
-            return ConfigLocal()
+            return Config(access_key="foo",
+                          secret_key="bar",
+                          endpoint_url="http://localhost:4566",
+                          dynamo_table_name=os.getenv(
+                              "DYNAMO_TABLE_NAME_LOCAL") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
+                          region=os.getenv("REGION_LOCAL"))
         if (Envs.IsDev()):
-            return ConfigDev()
+            return Config(access_key=os.getenv("DYNAMO_ACCESS_KEY_DEV"),
+                          secret_key=os.getenv("DYNAMO_SECRET_KEY_DEV"),
+                          endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL_DEV"),
+                          dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME_DEV") or "IaCStack-IaCDynamo5EF9A8C0-b18f4594",
+                          region=os.getenv("REGION_DEV"))
         if (Envs.IsProd()):
-            return ConfigProd()
-        return ConfigLocal()
+            return Config(access_key=os.getenv("DYNAMO_ACCESS_KEY"),
+                          secret_key=os.getenv("DYNAMO_SECRET_KEY"),
+                          endpoint_url=os.getenv("DYNAMO_ENDPOINT_URL"),
+                          dynamo_table_name=os.getenv("DYNAMO_TABLE_NAME"),
+                          region=os.getenv("REGION"))
+        return Config()  # Config de MOCK
