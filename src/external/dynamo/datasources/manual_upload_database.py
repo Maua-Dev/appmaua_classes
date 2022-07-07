@@ -6,9 +6,10 @@ from src.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
 from src.external.dynamo.datasources.mock_db import CLASSES # arquivo temporario com lista das aulas
 
 access_key = Envs.getConfig().access_key
-secret_key = None
+secret_key = Envs.getConfig().secret_key
 endpoint_url = None
-dynamo_table_name = "IaCStack-MauAppSubjectsDB1BBD4F9F-1KES1YD4D4CXE"
+dynamo_table_name = Envs.getConfig().dynamo_table_name
+region = Envs.getConfig().region
 
 
 def getDuplicates(data, partition_key, sort_key):
@@ -26,7 +27,7 @@ def getDuplicates(data, partition_key, sort_key):
 
 
 if __name__ == '__main__':
-    dynamo = DynamoDatasource(access_key, secret_key, endpoint_url, dynamo_table_name)
+    dynamo = DynamoDatasource(access_key, secret_key, endpoint_url, dynamo_table_name, region)
     data = CLASSES
 
     asyncio.run(dynamo.batchWriteItems(data))
