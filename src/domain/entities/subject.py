@@ -11,7 +11,7 @@ class Subject (BaseModel):
 
     @validator('code')
     def code_is_valid(cls, v: str) -> str:
-        if len(v) != 6:
+        if len(v) > 8 or len(v) < 6:
             raise EntityError('code')
         return v.upper()
 

@@ -1,20 +1,26 @@
 from typing import List
-import os
-import boto3
+from boto3.dynamodb.conditions import Key
 
+from src.infra.dtos.class_dynamo_dto import ClassDynamoDTO
 from src.domain.entities._class import Class
 from src.domain.repositories.class_repository_interface import IClassRepository
+from src.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
+from src.envs import Envs
 
 
-class SubjectRepositoryDynamo(IClassRepository):
+class ClassRepositoryDynamo(IClassRepository):
+    dynamo: DynamoDatasource
 
     def __init__(self):
-        s = boto3.Session(
-            aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
-            aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
-        self.dynamo = s.resource('dynamodb', endpoint_url=os.environ.get('AWS_ENDPOINT_URL'))
-        self.table = self.dynamo.Table(os.environ['DYNAMO_TABLE_NAME'])
+        self.dynamo = DynamoDatasource(access_key=Envs.getConfig().access_key,
+                                       secret_key=Envs.getConfig().secret_key, endpoint_url=None,
+                                       dynamo_table_name=Envs.getConfig().dynamo_table_name,
+                                       region=Envs.getConfig().region)
 
     async def get_student_week_classes(self, ra: str) -> List[Class]:
-        # todo implement method
-        pass
+        data = await self.dynamo.query(keyConditionExpression=Key("studentRA").eq(ra),
+                                       IndexName="studentRA-index")
+
+        return [ClassDynamoDTO.fromDynamo(item).toEntity() for item in data]
+
+

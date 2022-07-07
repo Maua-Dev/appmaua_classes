@@ -33,7 +33,7 @@ class SubjectViewModel:
     professor: ProfessorViewModel
 
     def __init__(self, _subject: Subject):
-        self.code = _subject.code
+        self.code = _subject.code.split('.')[0]
         self.name = _subject.name
         self.professor = ProfessorViewModel(_subject.professor)
 
